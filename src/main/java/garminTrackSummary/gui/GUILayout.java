@@ -1,4 +1,4 @@
-package garminSummary.gui;
+package garminTrackSummary.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -35,7 +35,7 @@ import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import garminSummary.main.Main;
+import garminTrackSummary.main.Main;
 import library.UserSetting;
 /**
  * Garmin GUI

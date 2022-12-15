@@ -1,4 +1,4 @@
-package garminSummary.main;
+package garminTrackSummary.main;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import garminSummary.gui.GUILayout;
+import garminTrackSummary.gui.GUILayout;
 import library.JarInfo;
 import library.UserSetting;
 
