@@ -1,0 +1,10 @@
+/target/
+.prefs
+.classpath
+.bak
+pom.properties
+MANIFEST.MF
+/bin/
+.settings/
+*.bak
+*.project

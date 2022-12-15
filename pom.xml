@@ -1,0 +1,166 @@
+<project xmlns="http://maven.apache.org/POM/5.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>garminTrackSummary</groupId>
+  <artifactId>garminTrackSummary</artifactId>
+  <version>0.6.2</version>
+  <packaging>jar</packaging>
+
+  <name>garminTrackSummary</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+  <!--
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+	-->
+	<dependency>
+	<groupId>org.json</groupId>
+	  <artifactId>json</artifactId>
+	  <version>20180813</version>
+	</dependency>
+	<dependency>
+      <groupId>io.jenetics</groupId>
+      <artifactId>jpx</artifactId>
+      <version>1.5.2</version>
+    </dependency>	<dependency>
+      <groupId>fr.dudie</groupId>
+      <artifactId>nominatim-api</artifactId>
+      <version>3.4</version>
+    </dependency>
+	<dependency>
+	  <groupId>com.miglayout</groupId>
+	  <artifactId>miglayout</artifactId>
+	  <version>3.7.4</version>
+	</dependency>	
+  </dependencies>
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>   
+	<plugins>
+	  <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>11</source>
+          <target>11</target>
+        </configuration>
+      </plugin>
+      <plugin>
+		<artifactId>maven-assembly-plugin</artifactId>
+		<executions>
+          <execution>
+			<phase>package</phase>
+			<goals>
+			  <goal>single</goal>
+			</goals>
+          </execution>
+          </executions>
+			<configuration>
+              <archive>
+                 <manifest>
+				   <addClasspath>true</addClasspath>
+				   <mainClass>Main</mainClass>
+				 </manifest>
+              </archive>
+              <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+              <finalName>garminTrackSummary</finalName>
+           </configuration>
+        </plugin>		
+		<!-- LAUNCH4J create executable v -->
+        <plugin>
+          <groupId>com.akathist.maven.plugins.launch4j</groupId>
+          <artifactId>launch4j-maven-plugin</artifactId>
+          <version>2.1.2</version>
+          <executions>
+            <execution>
+              <id>l4j-clui</id>
+              <phase>package</phase>
+              <goals>
+                <goal>launch4j</goal>
+              </goals>
+              <configuration>
+                <headerType>console</headerType>
+                <jar>target/garminTrackSummary-jar-with-dependencies.jar</jar>
+                <outfile>target/garminTrackSummary.exe</outfile>
+                <downloadUrl>http://java.com/download</downloadUrl>
+                <classPath>
+                  <mainClass>garminTrackSummary.main.Main</mainClass>
+                </classPath>
+				<icon>src/main/resources/GarminLogo.ico</icon>
+                <jre>
+                  <bundledJre64Bit>true</bundledJre64Bit>
+		          <path>%JAVA_HOME%;%PATH%</path>
+                  <bundledJreAsFallback>true</bundledJreAsFallback>
+                  <minVersion>1.8.0</minVersion>
+                  <jdkPreference>preferJre</jdkPreference>
+                  <runtimeBits>64</runtimeBits>
+                </jre>
+                <versionInfo>
+                  <fileVersion>0.4.0.0</fileVersion>
+                  <txtFileVersion>${project.version}</txtFileVersion>
+                  <fileDescription>${project.name}</fileDescription>
+                  <copyright>C</copyright>
+                  <productVersion>0.3.0.0</productVersion>
+                  <txtProductVersion>0.4.0.0</txtProductVersion>
+                  <productName>${project.name}</productName>
+                  <internalName>garminTrackSummary</internalName>
+                  <originalFilename>garminTrackSummary.exe</originalFilename>
+                </versionInfo>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+	    <!-- LAUNCH4J ^ -->
+		<!-- Sign executable v -->
+        <plugin>
+          <groupId>net.jsign</groupId>
+          <artifactId>jsign-maven-plugin</artifactId>
+          <version>4.0</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>sign</goal>
+              </goals>
+              <configuration>
+                <file>target/garminTrackSummary.exe</file>
+                <name>Garmin Summary</name>
+                <url>https://github.com/RSHKwee/garminTrackSummary</url>
+                <keystore>keystore.jks</keystore>
+                <alias>RSHK</alias>
+                <storepass>GW93ayi0j2CfeJx9VoSo</storepass>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+		<!-- Sign executable ^ -->		
+      </plugins>
+  </build>
+  <distributionManagement>
+    <!-- Upload to Github v-->
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/RSHKwee/garmintracksummary</url>
+    </repository>
+    <!-- Upload to Github ^-->
+  </distributionManagement>
+</project>
